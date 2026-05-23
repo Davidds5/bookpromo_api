@@ -50,4 +50,11 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
+    public UserResponseDTO getUser(Long id) {
+        return userRepository.findById(id)
+                .map(UserResponseDTO :: fromEntity)
+                .orElseThrow(() -> new IllegalArgumentException("Usuario nao encontrado!"));
+
+    }
+
 }

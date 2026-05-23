@@ -2,6 +2,7 @@ package com.davidds5.bookpromo.controller;
 
 import java.util.List;
 
+import com.davidds5.bookpromo.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ import jakarta.validation.Valid;
 public class BookController {
 
     private final BookService bookService;
+    private final BookRepository bookRepository;
 
     @PostMapping
     public ResponseEntity<BookResponseDTO> create(@RequestBody @Valid BookRequestDTO bookRequestDTO) {
@@ -35,7 +37,15 @@ public class BookController {
     @DeleteMapping("/{id}")
     public ResponseEntity<BookResponseDTO> delete(@PathVariable Long id) {
         bookService.delete(id);
+        // retorna o status 204
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<BookResponseDTO> getBookId(@PathVariable Long id) {
+        BookResponseDTO responseDTO = bookService.getBookId(id);
+        // retorna o status 200
+        return ResponseEntity.ok(responseDTO);
     }
 
 }

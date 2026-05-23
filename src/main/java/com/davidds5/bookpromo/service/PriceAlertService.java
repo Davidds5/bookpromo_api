@@ -8,6 +8,7 @@ import com.davidds5.bookpromo.entity.User;
 import com.davidds5.bookpromo.repository.BookRepository;
 import com.davidds5.bookpromo.repository.PriceAlertRepository;
 import com.davidds5.bookpromo.repository.UserRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -55,4 +56,10 @@ public class PriceAlertService {
         priceAlertRepository.deleteById(id);
 
     }
+    public PriceAlertResponseDTO getPriceAlertById(long id) {
+        return priceAlertRepository.findById(id)
+                .map(PriceAlertResponseDTO :: fromEntity)
+                .orElseThrow(() ->new IllegalArgumentException("Alerta de preco com ID " + id + " nao encontrado"));
+    }
+
 }

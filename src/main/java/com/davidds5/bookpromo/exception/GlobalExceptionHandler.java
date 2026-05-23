@@ -21,11 +21,11 @@ public class GlobalExceptionHandler {
     public ResponseEntity<StandardError> illegalArgument(IllegalArgumentException e, HttpServletRequest request) {
         StandardError err = new StandardError();
         err.setTimestamp(Instant.now());
-        err.setStatus(HttpStatus.BAD_REQUEST.value());
-        err.setError("Illegal Argument");
+        err.setStatus(HttpStatus.NOT_FOUND.value());
+        err.setError("recurso nao encontrado");
         err.setMessage(e.getMessage());
         err.setPath(request.getRequestURI());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

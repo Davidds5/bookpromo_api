@@ -39,4 +39,11 @@ public class PromotionController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<PromotionResponseDTO> getPromoId(@PathVariable Long id){
+        PromotionResponseDTO responseDTO = promotionService.getPromotion(id);
+
+        return ResponseEntity.ok(responseDTO);
+    }
+
 }

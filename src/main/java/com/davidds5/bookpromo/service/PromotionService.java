@@ -53,4 +53,10 @@ public class PromotionService {
         }
         promotionRepository.deleteById(id);
     }
+
+    public PromotionResponseDTO getPromotion(Long id) {
+        return promotionRepository.findById(id)
+                .map(PromotionResponseDTO :: fromEntity)
+                .orElseThrow(()-> new IllegalArgumentException("Promocao nao encontrada"));
+    }
 }

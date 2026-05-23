@@ -37,4 +37,10 @@ public class BookService {
         bookRepository.deleteById(id);
     }
 
+    public BookResponseDTO getBookId (Long id) {
+        return bookRepository.findById(id)
+                .map(BookResponseDTO :: fromEntity)
+                .orElseThrow(() -> new IllegalArgumentException("Book com ID " + id + " nao encontrado"));
+    }
+
 }
