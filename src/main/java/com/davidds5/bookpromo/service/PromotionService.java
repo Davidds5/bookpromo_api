@@ -6,6 +6,7 @@ import java.util.Optional;
 import com.davidds5.bookpromo.dto.PromotionRequestDTO;
 import com.davidds5.bookpromo.dto.PromotionResponseDTO;
 import com.davidds5.bookpromo.entity.Book;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import com.davidds5.bookpromo.entity.Promotion;
@@ -13,11 +14,12 @@ import com.davidds5.bookpromo.repository.BookRepository;
 import com.davidds5.bookpromo.repository.PromotionRepository;
 
 @Service
+@RequiredArgsConstructor
 public class PromotionService {
 
-    private PromotionRepository promotionRepository;
+    private final PromotionRepository promotionRepository;
 
-    private BookRepository bookRepository;
+    private final BookRepository bookRepository;
 
     public PromotionResponseDTO save(PromotionRequestDTO promotionRequestDTO) {
         Book book = bookRepository.findById(promotionRequestDTO.getBookId())

@@ -4,6 +4,7 @@ import com.davidds5.bookpromo.dto.PriceAlertRequestDTO;
 import com.davidds5.bookpromo.dto.PriceAlertResponseDTO;
 import com.davidds5.bookpromo.service.PriceAlertService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,9 +13,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/priceAlert")
+@RequiredArgsConstructor
 public class PriceAlertController {
 
-    private PriceAlertService priceAlertService;
+    private final PriceAlertService priceAlertService;
 
     @PostMapping
     public ResponseEntity<PriceAlertResponseDTO> createPriceAlert(

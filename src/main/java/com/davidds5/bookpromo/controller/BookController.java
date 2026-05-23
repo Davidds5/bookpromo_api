@@ -1,6 +1,8 @@
 package com.davidds5.bookpromo.controller;
 
 import java.util.List;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +15,10 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/books")
+@RequiredArgsConstructor
 public class BookController {
 
-    private BookService bookService;
+    private final BookService bookService;
 
     @PostMapping
     public ResponseEntity<BookResponseDTO> create(@RequestBody @Valid BookRequestDTO bookRequestDTO) {
