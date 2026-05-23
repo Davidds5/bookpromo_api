@@ -6,7 +6,6 @@ import java.util.Optional;
 import com.davidds5.bookpromo.dto.PromotionRequestDTO;
 import com.davidds5.bookpromo.dto.PromotionResponseDTO;
 import com.davidds5.bookpromo.entity.Book;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.davidds5.bookpromo.entity.Promotion;
@@ -16,15 +15,14 @@ import com.davidds5.bookpromo.repository.PromotionRepository;
 @Service
 public class PromotionService {
 
-    @Autowired
     private PromotionRepository promotionRepository;
 
-    @Autowired
     private BookRepository bookRepository;
 
     public PromotionResponseDTO save(PromotionRequestDTO promotionRequestDTO) {
         Book book = bookRepository.findById(promotionRequestDTO.getBookId())
-                .orElseThrow(() -> new IllegalArgumentException("Nao e possivel cadrasta: Livro com ID "  + promotionRequestDTO.getBookId() + " nao encontrado") );
+                .orElseThrow(() -> new IllegalArgumentException("Nao e possivel cadrasta: Livro com ID "
+                        + promotionRequestDTO.getBookId() + " nao encontrado"));
 
         Promotion promotion = new Promotion();
         promotion.setPlatform(promotionRequestDTO.getPlatform());
@@ -39,7 +37,7 @@ public class PromotionService {
     public List<PromotionResponseDTO> findAll() {
         return promotionRepository.findAll()
                 .stream()
-                .map(PromotionResponseDTO :: fromEntity)
+                .map(PromotionResponseDTO::fromEntity)
                 .toList();
     }
 

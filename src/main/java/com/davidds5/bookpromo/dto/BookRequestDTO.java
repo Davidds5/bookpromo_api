@@ -13,12 +13,12 @@ import lombok.Setter;
 @AllArgsConstructor
 public class BookRequestDTO {
 
-    @NotBlank(message = "Name is required")
-    @Size(min = 3, max = 100, message = "Name must be between 3 and 100 characters")
+    @NotBlank(message = "Requer nome")
+    @Size(min = 3, max = 100, message = "Nome deve ter entre 3 e 100 caractres")
     private String name;
 
-    @NotBlank(message = "Author is required")
-    @Size(min = 3, max = 100, message = "Author must be between 3 and 100 characters")
+    @NotBlank(message = "Requer nome do author")
+    @Size(min = 3, max = 100, message = "O nome do authot deve ter entre 3 e 100 caractres")
     private String author;
 
     private String category;

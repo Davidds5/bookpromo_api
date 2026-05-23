@@ -1,19 +1,19 @@
 package com.davidds5.bookpromo.service;
 
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.davidds5.bookpromo.dto.BookRequestDTO;
 import com.davidds5.bookpromo.dto.BookResponseDTO;
 import com.davidds5.bookpromo.entity.Book;
 import com.davidds5.bookpromo.repository.BookRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class BookService {
 
-    @Autowired
-    private BookRepository bookRepository;
+    private final BookRepository bookRepository;
 
     public BookResponseDTO save(BookRequestDTO bookRequestDTO) {
         Book book = new Book();
@@ -31,8 +31,8 @@ public class BookService {
     }
 
     public void delete(Long id) {
-      if (!bookRepository.existsById(id)){
-          throw new IllegalArgumentException("Nao foi possivel deletar: Livro com ID "+ id + " nao encontrado");
+        if (!bookRepository.existsById(id)) {
+            throw new IllegalArgumentException("Nao foi possivel deletar: Livro com ID " + id + " nao encontrado");
         }
         bookRepository.deleteById(id);
     }

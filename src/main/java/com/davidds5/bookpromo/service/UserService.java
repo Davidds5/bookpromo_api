@@ -1,6 +1,5 @@
 package com.davidds5.bookpromo.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.davidds5.bookpromo.dto.UserRequestDTO;
@@ -14,7 +13,6 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    @Autowired
     private UserRepository userRepository;
 
     public UserResponseDTO save(UserRequestDTO userRequestDTO) {
@@ -35,7 +33,7 @@ public class UserService {
     public List<UserResponseDTO> findAll() {
         return userRepository.findAll()
                 .stream()
-                .map(UserResponseDTO ::fromEntity)
+                .map(UserResponseDTO::fromEntity)
                 .toList();
     }
 
@@ -44,7 +42,7 @@ public class UserService {
     }
 
     public void delete(Long id) {
-        if(!userRepository.existsById(id)){
+        if (!userRepository.existsById(id)) {
             throw new IllegalArgumentException("Nao foi possivel deletar: Usuario com ID " + id + " nao encontrado!");
         }
         userRepository.deleteById(id);

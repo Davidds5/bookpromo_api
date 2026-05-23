@@ -4,13 +4,10 @@ import java.util.List;
 
 import com.davidds5.bookpromo.dto.PromotionRequestDTO;
 import com.davidds5.bookpromo.dto.PromotionResponseDTO;
-import com.davidds5.bookpromo.repository.PromotionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.davidds5.bookpromo.entity.Promotion;
 import com.davidds5.bookpromo.service.PromotionService;
 
 import jakarta.validation.Valid;
@@ -19,7 +16,6 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/promotions")
 public class PromotionController {
 
-    @Autowired
     private PromotionService promotionService;
 
     @PostMapping
@@ -34,6 +30,7 @@ public class PromotionController {
         List<PromotionResponseDTO> promotions = promotionService.findAll();
         return ResponseEntity.ok(promotions);
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<PromotionResponseDTO> delete(@PathVariable Long id) {
         promotionService.delete(id);

@@ -4,7 +4,6 @@ import com.davidds5.bookpromo.dto.UserRequestDTO;
 import com.davidds5.bookpromo.dto.UserResponseDTO;
 import com.davidds5.bookpromo.service.UserService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +13,6 @@ import java.util.List;
 @RequestMapping("/api/users")
 public class UserController {
 
-    @Autowired
     private UserService userService;
 
     @PostMapping
@@ -33,6 +31,5 @@ public class UserController {
         userService.delete(id);
         return ResponseEntity.noContent().build();
     }
-
 
 }
