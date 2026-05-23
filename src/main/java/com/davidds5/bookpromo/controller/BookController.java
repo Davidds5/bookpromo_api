@@ -1,0 +1,41 @@
+package com.davidds5.bookpromo.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import com.davidds5.bookpromo.dto.BookRequestDTO;
+import com.davidds5.bookpromo.dto.BookResponseDTO;
+import com.davidds5.bookpromo.service.BookService;
+
+import jakarta.validation.Valid;
+
+@RestController
+@RequestMapping("/api/books")
+public class BookController {
+
+    @Autowired
+    private BookService bookService;
+
+    @PostMapping
+    public ResponseEntity<BookResponseDTO> create(@RequestBody @Valid BookRequestDTO bookRequestDTO) {
+        BookResponseDTO savedBook = bookService.save(bookRequestDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedBook);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<BookResponseDTO>> findAll() {
+        List<BookResponseDTO> books = bookService.findAll();
+        return ResponseEntity.ok(books);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<BookResponseDTO> detete(@PathVariable Long id){
+        bookService.delete(id);
+      return ResponseEntity.noContent().build();
+    }
+
+}
