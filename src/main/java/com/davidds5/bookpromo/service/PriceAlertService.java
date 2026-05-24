@@ -8,7 +8,6 @@ import com.davidds5.bookpromo.entity.User;
 import com.davidds5.bookpromo.repository.BookRepository;
 import com.davidds5.bookpromo.repository.PriceAlertRepository;
 import com.davidds5.bookpromo.repository.UserRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -31,8 +30,8 @@ public class PriceAlertService {
                         "Nao foi possivel criar um alerta: User com ID " + dto.getUserId() + " nao encotrado"));
 
         PriceAlert savePriceAlert = new PriceAlert();
-        savePriceAlert.setBook(book);
-        savePriceAlert.setUser(user);
+        savePriceAlert.setBookId(book);
+        savePriceAlert.setUserId(user);
         savePriceAlert.setDesiredPrice(dto.getDesiredPrice());
         savePriceAlert.setActive(true);
 
@@ -56,10 +55,30 @@ public class PriceAlertService {
         priceAlertRepository.deleteById(id);
 
     }
+
+
     public PriceAlertResponseDTO getPriceAlertById(long id) {
         return priceAlertRepository.findById(id)
                 .map(PriceAlertResponseDTO :: fromEntity)
                 .orElseThrow(() ->new IllegalArgumentException("Alerta de preco com ID " + id + " nao encontrado"));
+    }
+
+
+    public PriceAlertResponseDTO update(Long id, PriceAlertRequestDTO dto) {
+        PriceAlert priceAlert = priceAlertRepository.findById(id)
+        .orElseThrow(() -> new IllegalArgumentException("Alerta de preco com ID " + id + " nao encontrado"));
+
+        Book book = bookRepository.findById(dto.getBookId())
+        .orElseThrow(() -> new IllegalArgumentException("Livro com ID " + dto.getBookId() + " nao encontrado"));
+
+        User user = userRepository.findById(dto.getUserId())
+        .orElseThrow(() -> new IllegalArgumentException("Usuario com ID " + dto.getUserId() + " nao encontrado"));
+
+        priceAlert.setBookId(book);
+        priceAlert.setUserId(user);
+        priceAlert.setDesiredPrice(dto.getDesiredPrice());
+
+        return PriceAlertResponseDTO.fromEntity(priceAlertRepository.save(priceAlert));
     }
 
 }

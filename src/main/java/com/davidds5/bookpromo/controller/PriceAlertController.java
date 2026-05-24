@@ -48,5 +48,11 @@ public class PriceAlertController {
         return ResponseEntity.ok(responseDTO);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<PriceAlertResponseDTO> updatePriceAlert(@PathVariable Long id, @RequestBody @Valid PriceAlertRequestDTO priceAlertRequestDTO) {
+        PriceAlertResponseDTO dto = priceAlertService.update(id, priceAlertRequestDTO);
+        return ResponseEntity.ok(dto);
+    }
+
 
 }

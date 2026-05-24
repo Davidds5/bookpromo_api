@@ -21,6 +21,6 @@ public class PriceAlertResponseDTO {
     private boolean active;
 
     public static PriceAlertResponseDTO fromEntity(PriceAlert priceAlert) {
-        return new PriceAlertResponseDTO(priceAlert.getId(), priceAlert.getBook().getId(), priceAlert.getUser().getId(), priceAlert.getDesiredPrice(), priceAlert.isActive());
+        return new PriceAlertResponseDTO(priceAlert.getId(), priceAlert.getBookId().getId(), priceAlert.getUserId().getId(), priceAlert.getDesiredPrice(), priceAlert.isActive());
     }
 }

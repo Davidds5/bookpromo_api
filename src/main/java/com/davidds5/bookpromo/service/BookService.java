@@ -15,11 +15,11 @@ public class BookService {
 
     private final BookRepository bookRepository;
 
-    public BookResponseDTO save(BookRequestDTO bookRequestDTO) {
+    public BookResponseDTO save(BookRequestDTO dto) {
         Book book = new Book();
-        book.setName(bookRequestDTO.getName());
-        book.setAuthor(bookRequestDTO.getAuthor());
-        book.setCategory(bookRequestDTO.getCategory());
+        book.setName(dto.getName());
+        book.setAuthor(dto.getAuthor());
+        book.setCategory(dto.getCategory());
         return BookResponseDTO.fromEntity(bookRepository.save(book));
     }
 
@@ -37,10 +37,21 @@ public class BookService {
         bookRepository.deleteById(id);
     }
 
-    public BookResponseDTO getBookId (Long id) {
+    public BookResponseDTO getBookId(Long id) {
         return bookRepository.findById(id)
-                .map(BookResponseDTO :: fromEntity)
+                .map(BookResponseDTO::fromEntity)
                 .orElseThrow(() -> new IllegalArgumentException("Book com ID " + id + " nao encontrado"));
+    }
+
+    public BookResponseDTO updateBook(Long id, BookRequestDTO dto) {
+        Book book = bookRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Book com ID " + id + " nao encontrado"));
+
+        book.setName(dto.getName());
+        book.setAuthor(dto.getAuthor());
+        book.setCategory(dto.getCategory());
+
+        return BookResponseDTO.fromEntity(bookRepository.save(book));
     }
 
 }

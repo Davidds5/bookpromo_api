@@ -30,11 +30,11 @@ public class PriceAlert {
 
     @ManyToOne
     @JoinColumn(name = "book_id")
-    private Book book;
+    private Book bookId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private User userId;
 
     @Column(name = "desired_price")
     @NotNull(message = "Desired Price not Null")

@@ -59,4 +59,12 @@ public class PromotionService {
                 .map(PromotionResponseDTO :: fromEntity)
                 .orElseThrow(()-> new IllegalArgumentException("Promocao nao encontrada"));
     }
+
+    public PromotionResponseDTO updatePromotion(Long id, PromotionRequestDTO dto) {
+        Promotion promotion = promotionRepository.findById(id)
+                .orElseThrow(()-> new IllegalArgumentException("Promocao com ID " + id + " nao encotrado"));
+
+        Book book = bookRepository.findById(dto.getBookId());
+
+    }
 }
